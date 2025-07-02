@@ -376,7 +376,23 @@ bool DijkstraGlobalPlanner::dijkstraShortestPath(
   RCLCPP_INFO(node_->get_logger(),
               "Dijkstra: Done traversing nodes in open_list");
 
+  //  We found a path to the goal
+  if (path_found) {
 
+    int current_node_index = goal_cell_index;
+    shortest_path.push_back(goal_cell_index);
+
+    while (current_node_index != start_cell_index) {
+      // # Look for the current node's parent
+      current_node_index = parents[current_node_index];
+
+      // Add the parent to the shortest path
+      shortest_path.push_back(current_node_index);
+    }
+  }
+
+  // Lastly reverse the path to get the one from start to goal nodes
+  std::reverse(shortest_path.begin(), shortest_path.end());
   /** YOUR CODE ENDS HERE */
 
   return path_found;
