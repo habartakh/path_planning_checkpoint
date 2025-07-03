@@ -357,7 +357,8 @@ bool DijkstraGlobalPlanner::dijkstraShortestPath(
           parents[neighbour_index] = current_node;
 
           // Update the node's g_cost inside open_list
-          // open_list[open_list.begin()+neigbour_iter].second = g_cost;
+          auto index = std::distance(open_list.begin() , neigbour_iter) ; 
+          open_list[index].second = g_cost;
         }
       }
 
